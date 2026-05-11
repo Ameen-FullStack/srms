@@ -1,14 +1,13 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-/* =========================================================
+/* ===========================
    PROTECT ROUTE
-========================================================= */
+=========================== */
 const protect = async (req, res, next) => {
   try {
     let token;
 
-    // Check Authorization header
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer ")
@@ -16,7 +15,6 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
 
-    // No token
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -24,10 +22,8 @@ const protect = async (req, res, next) => {
       });
     }
 
-    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Find user
     const user = await User.findById(decoded.id).select("-password");
 
     if (!user) {
@@ -37,8 +33,7 @@ const protect = async (req, res, next) => {
       });
     }
 
-    // Safe check for isActive
-    if (user.isActive === false) {
+    if (!user.isActive) {
       return res.status(403).json({
         success: false,
         message: "Account is deactivated.",
@@ -49,7 +44,7 @@ const protect = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.error("Protect middleware error:", err);
+    console.error("PROTECT ERROR:", err);
 
     return res.status(401).json({
       success: false,
@@ -58,32 +53,39 @@ const protect = async (req, res, next) => {
   }
 };
 
-/* =========================================================
-   ADMIN ONLY
-========================================================= */
+/* ===========================
+   ADMIN CHECK
+=========================== */
 const isAdmin = (req, res, next) => {
   try {
-    if (req.user && req.user.role === "admin") {
-      return next();
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "Not authenticated.",
+      });
     }
 
-    return res.status(403).json({
-      success: false,
-      message: "Admin access required.",
-    });
+    if (req.user.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Admin access required.",
+      });
+    }
+
+    next();
   } catch (err) {
-    console.error("Admin middleware error:", err);
+    console.error("ADMIN ERROR:", err);
 
     return res.status(500).json({
       success: false,
-      message: "Authorization failed.",
+      message: err.message,
     });
   }
 };
 
-/* =========================================================
+/* ===========================
    OPTIONAL AUTH
-========================================================= */
+=========================== */
 const optionalAuth = async (req, res, next) => {
   try {
     let token;
@@ -98,17 +100,13 @@ const optionalAuth = async (req, res, next) => {
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      const user = await User.findById(decoded.id).select("-password");
-
-      if (user) {
-        req.user = user;
-      }
+      req.user = await User.findById(decoded.id).select("-password");
     }
 
     next();
   } catch (err) {
-    // Don't block request for optional auth
-    console.log("Optional auth skipped:", err.message);
+    console.error("OPTIONAL AUTH ERROR:", err);
+
     next();
   }
 };
