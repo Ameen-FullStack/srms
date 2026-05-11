@@ -1,6 +1,6 @@
 const Material = require("../models/Material");
 const User = require("../models/User");
-const { Notification } = require("../models/Notification");
+const Notification = require("../models/Notification");
 
 // GET /api/admin/pending
 exports.getPending = async (req, res) => {
