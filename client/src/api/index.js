@@ -1,11 +1,18 @@
 import axios from "axios";
 
 /* =========================================================
+   BASE URL
+========================================================= */
+
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "https://srms-backend-hsko.onrender.com/api";
+
+/* =========================================================
    AXIOS INSTANCE
 ========================================================= */
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: BASE_URL,
 });
 
 /* =========================================================
@@ -42,6 +49,8 @@ api.interceptors.response.use(
 
       window.location.href = "/login";
     }
+
+    console.error("API ERROR:", error.response || error);
 
     return Promise.reject(
       new Error(error.response?.data?.message || "Something went wrong"),
