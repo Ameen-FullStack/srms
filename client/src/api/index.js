@@ -224,7 +224,7 @@ export const resolveFileUrl = (url) => {
     return url;
   }
 
-  return `http://localhost:5000${url}`;
+  return `https://srms-backend-hsko.onrender.com${url}`;
 };
 
 export default api;

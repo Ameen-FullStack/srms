@@ -23,12 +23,6 @@ import {
 import { useEffect } from "react";
 
 export default function App() {
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/")
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  }, []);
   return (
     <BrowserRouter>
       <AuthProvider>
