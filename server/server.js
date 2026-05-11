@@ -12,7 +12,10 @@ const app = express();
 app.use(
   cors({
     origin: function (origin, callback) {
-      const allowedOrigins = ["http://localhost:5173"];
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://srms-tprw.onrender.com",
+      ];
 
       // Allow Postman / mobile apps / requests with no origin
       if (!origin) return callback(null, true);
