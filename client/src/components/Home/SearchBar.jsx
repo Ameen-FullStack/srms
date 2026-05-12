@@ -84,8 +84,8 @@ const SearchBar = ({ filters, setFilters, handleSearch }) => {
         <option value="rating">Top rated</option>
       </select>
 
-      <button type="submit" className="btn btn-primary btn-sm">
-        Search
+      <button type="reset" className="btn btn-primary btn-sm">
+        Reset
       </button>
     </form>
   );
