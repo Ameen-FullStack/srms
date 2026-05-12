@@ -173,8 +173,17 @@ exports.toggleUser = async (req, res) => {
       message: `User ${user.isActive ? "activated" : "deactivated"}.`,
       user,
     });
+    // } catch (err) {
+    //   res.status(500).json({ success: false, message: err.message });
+    // }
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error("TOGGLE ERROR:", err);
+
+    res.status(500).json({
+      success: false,
+      message: err.message,
+      stack: err.stack,
+    });
   }
 };
 
