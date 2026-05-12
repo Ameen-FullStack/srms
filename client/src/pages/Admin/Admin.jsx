@@ -96,6 +96,24 @@ export default function Admin() {
     }
   };
 
+  const handleToggleUser = async (id) => {
+    try {
+      const res = await toggleUser(id);
+
+      toast(res.message || "User updated!");
+
+      // Refresh users list
+      loadTab("users");
+
+      // Refresh dashboard stats
+      loadDashboard();
+    } catch (err) {
+      console.error(err);
+
+      toast(err.message || "Failed to update user", "error");
+    }
+  };
+
   return (
     <div className="page">
       <div className="page-header">
@@ -121,7 +139,7 @@ export default function Admin() {
           {tab === "materials" && <AllMaterialsTable data={data} />}
 
           {tab === "users" && (
-            <UsersTable data={data} toggleUser={toggleUser} />
+            <UsersTable data={data} toggleUser={handleToggleUser} />
           )}
 
           {tab === "leaderboard" && <LeaderboardList data={data} />}
