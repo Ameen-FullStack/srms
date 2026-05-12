@@ -7,6 +7,8 @@ import NavLinks from "./NavLinks";
 import NotificationButton from "./NotificationButton";
 import UserDropdown from "./UserDropdown";
 
+import iconImg from "../../assets/images/icon.png";
+
 const Navbar = () => {
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
@@ -57,23 +59,25 @@ const Navbar = () => {
           color: "var(--primary)",
         }}
       >
-        <span
+        <div
           style={{
-            width: 30,
-            height: 30,
-            borderRadius: 8,
-            background: "var(--primary)",
-            color: "#fff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 16,
-            fontWeight: 700,
+            overflow: "hidden",
           }}
         >
-          S
-        </span>
-        StudyShare
+          <img
+            src={iconImg}
+            alt="SRMS Logo"
+            style={{
+              height: 55,
+              width: "auto",
+              objectFit: "contain",
+              display: "block",
+            }}
+          />
+        </div>
       </Link>
 
       <NavLinks user={user} isAdmin={isAdmin} />

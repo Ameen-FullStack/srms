@@ -1,3 +1,5 @@
+import iconImg from "../../assets/images/icon.png";
+
 const AuthHeader = () => {
   return (
     <div
@@ -10,30 +12,13 @@ const AuthHeader = () => {
     >
       <div
         style={{
-          width: 38,
-          height: 38,
-          borderRadius: 10,
-          background: "var(--primary)",
-          color: "#fff",
+          flex: 1,
           display: "flex",
-          alignItems: "center",
           justifyContent: "center",
-          fontSize: 20,
-          fontWeight: 700,
         }}
       >
-        S
+        <img src={iconImg} alt="Logo" width={150} />
       </div>
-
-      <span
-        style={{
-          fontSize: 22,
-          fontWeight: 700,
-          color: "var(--primary)",
-        }}
-      >
-        StudyShare
-      </span>
     </div>
   );
 };

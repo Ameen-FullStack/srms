@@ -1,0 +1,35 @@
+<svg width="500" height="180" viewBox="0 0 500 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="180" rx="20" fill="white"/>
+
+  <!-- Book Icon -->
+  <g transform="translate(165,15)">
+    <path d="M85 20L120 50L85 80L50 50L85 20Z" fill="#1E88E5"/>
+    <path d="M40 70C60 55 85 55 105 70" stroke="#42A5F5" stroke-width="8" stroke-linecap="round"/>
+    <path d="M65 95C80 85 95 85 110 95" stroke="#64B5F6" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Open book -->
+    <path d="M20 100C50 85 75 90 100 105V130C75 118 50 115 20 128V100Z" fill="#2196F3"/>
+    <path d="M180 100C150 85 125 90 100 105V130C125 118 150 115 180 128V100Z" fill="#1976D2"/>
+
+    <!-- Decorative dots -->
+    <circle cx="5" cy="70" r="5" fill="#42A5F5"/>
+    <circle cx="195" cy="70" r="5" fill="#42A5F5"/>
+    <circle cx="15" cy="50" r="4" fill="#64B5F6"/>
+    <circle cx="185" cy="50" r="4" fill="#64B5F6"/>
+  </g>
+
+  <!-- SRMS Text -->
+  <text x="250" y="135" text-anchor="middle" font-size="72" font-family="Arial, sans-serif" font-weight="800" fill="#1976D2">
+    SRMS
+  </text>
+
+  <!-- Subtitle -->
+  <text x="250" y="158" text-anchor="middle" font-size="16" font-family="Arial, sans-serif" fill="#555">
+    Student Resource Management System
+  </text>
+
+  <!-- Tagline -->
+  <text x="250" y="174" text-anchor="middle" font-size="12" font-family="Arial, sans-serif" fill="#888">
+    Share • Learn • Grow
+  </text>
+</svg>

@@ -61,7 +61,7 @@ const SearchBar = ({ filters, setFilters, handleSearch }) => {
       >
         <option value="">All types</option>
 
-        {["pdf", "docx", "pptx", "jpg", "txt"].map((t) => (
+        {["pdf", "docx", "pptx", "jpg", "txt", "png"].map((t) => (
           <option key={t} value={t}>
             {t.toUpperCase()}
           </option>
