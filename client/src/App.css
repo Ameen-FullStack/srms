@@ -5,20 +5,35 @@
   color: var(--accent);
   background: var(--accent-bg);
   border: 2px solid transparent;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
   margin-bottom: 24px;
 
   &:hover {
     border-color: var(--accent-border);
   }
+
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 4px 8px;
+    margin-bottom: 18px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: center;
   }
 }
 
 .hero {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .base,
   .framework,
@@ -31,6 +46,14 @@
     width: 170px;
     position: relative;
     z-index: 0;
+
+    @media (max-width: 768px) {
+      width: 130px;
+    }
+
+    @media (max-width: 480px) {
+      width: 100px;
+    }
   }
 
   .framework,
@@ -42,8 +65,20 @@
     z-index: 1;
     top: 34px;
     height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg)
+      rotateY(39deg) scale(1.4);
+
+    @media (max-width: 768px) {
+      top: 24px;
+      height: 22px;
+      transform: perspective(2000px) rotateZ(300deg) rotateX(44deg)
+        rotateY(39deg) scale(1.1);
+    }
+
+    @media (max-width: 480px) {
+      top: 18px;
+      height: 18px;
+    }
   }
 
   .vite {
@@ -51,8 +86,18 @@
     top: 107px;
     height: 26px;
     width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg)
+      rotateY(39deg) scale(0.8);
+
+    @media (max-width: 768px) {
+      top: 80px;
+      height: 20px;
+    }
+
+    @media (max-width: 480px) {
+      top: 60px;
+      height: 16px;
+    }
   }
 }
 
@@ -63,10 +108,21 @@
   place-content: center;
   place-items: center;
   flex-grow: 1;
+  padding: 40px;
 
   @media (max-width: 1024px) {
     padding: 32px 20px 24px;
     gap: 18px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+    gap: 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 12px;
+    gap: 14px;
   }
 }
 
@@ -78,8 +134,13 @@
   & > div {
     flex: 1 1 0;
     padding: 32px;
+
     @media (max-width: 1024px) {
       padding: 24px 20px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 20px 16px;
     }
   }
 
@@ -87,6 +148,11 @@
     margin-bottom: 16px;
     width: 22px;
     height: 22px;
+
+    @media (max-width: 480px) {
+      width: 18px;
+      height: 18px;
+    }
   }
 
   @media (max-width: 1024px) {
@@ -110,9 +176,14 @@
   display: flex;
   gap: 8px;
   margin: 32px 0 0;
+  flex-wrap: wrap;
 
   .logo {
     height: 18px;
+
+    @media (max-width: 480px) {
+      height: 16px;
+    }
   }
 
   a {
@@ -125,20 +196,30 @@
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
       box-shadow: var(--shadow);
     }
+
     .button-icon {
       height: 18px;
       width: 18px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+      justify-content: center;
     }
   }
 
   @media (max-width: 1024px) {
     margin-top: 20px;
-    flex-wrap: wrap;
     justify-content: center;
 
     li {
@@ -151,13 +232,24 @@
       box-sizing: border-box;
     }
   }
+
+  @media (max-width: 480px) {
+    li {
+      flex: 1 1 100%;
+    }
+  }
 }
 
 #spacer {
   height: 88px;
   border-top: 1px solid var(--border);
+
   @media (max-width: 1024px) {
     height: 48px;
+  }
+
+  @media (max-width: 480px) {
+    height: 32px;
   }
 }
 
@@ -177,6 +269,7 @@
     left: 0;
     border-left-color: var(--border);
   }
+
   &::after {
     right: 0;
     border-right-color: var(--border);

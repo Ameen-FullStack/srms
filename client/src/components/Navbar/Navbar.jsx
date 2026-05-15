@@ -16,6 +16,7 @@ const Navbar = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [unread, setUnread] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -25,13 +26,10 @@ const Navbar = () => {
     }
   }, [user, location.pathname]);
 
+  // Close mobile menu on route change
   useEffect(() => {
-    const close = () => setDropdownOpen(false);
-
-    document.addEventListener("click", close);
-
-    return () => document.removeEventListener("click", close);
-  }, []);
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <nav
@@ -40,80 +38,151 @@ const Navbar = () => {
         top: 0,
         zIndex: 100,
         background: "var(--bg)",
-        borderBottom: "0.5px solid var(--border)",
-        height: "var(--nav-height)",
-        display: "flex",
-        alignItems: "center",
-        padding: "0 24px",
-        gap: 32,
+        borderBottom: "1px solid var(--border)",
       }}
     >
-      <Link
-        to="/"
+      {/* Top Navbar */}
+      <div
         style={{
+          height: "70px",
           display: "flex",
           alignItems: "center",
-          gap: 8,
-          fontWeight: 600,
-          fontSize: 18,
-          color: "var(--primary)",
+          justifyContent: "space-between",
+          padding: "0 20px",
+          gap: 20,
         }}
       >
-        <div
+        {/* Logo */}
+        <Link
+          to="/"
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
+            flexShrink: 0,
           }}
         >
           <img
             src={iconImg}
-            alt="SRMS Logo"
+            alt="Logo"
             style={{
-              height: 55,
+              height: 50,
               width: "auto",
               objectFit: "contain",
-              display: "block",
             }}
           />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          className="desktop-nav"
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "flex-start",
+            marginLeft: 10,
+          }}
+        >
+          <NavLinks user={user} isAdmin={isAdmin} />
         </div>
-      </Link>
 
-      <NavLinks user={user} isAdmin={isAdmin} />
+        {/* Right Section */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            flexShrink: 0,
+          }}
+        >
+          {user ? (
+            <>
+              <NotificationButton unread={unread} navigate={navigate} />
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          marginLeft: "auto",
-        }}
-      >
-        {user ? (
-          <>
-            <NotificationButton unread={unread} navigate={navigate} />
+              <UserDropdown
+                user={user}
+                logout={logout}
+                navigate={navigate}
+                dropdownOpen={dropdownOpen}
+                setDropdownOpen={setDropdownOpen}
+              />
+            </>
+          ) : (
+            <div className="auth-buttons">
+              <Link to="/login" className="btn btn-outline btn-sm">
+                Login
+              </Link>
 
-            <UserDropdown
-              user={user}
-              logout={logout}
-              navigate={navigate}
-              dropdownOpen={dropdownOpen}
-              setDropdownOpen={setDropdownOpen}
-            />
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="btn btn-outline btn-sm">
-              Login
-            </Link>
+              <Link to="/register" className="btn btn-primary btn-sm">
+                Sign Up
+              </Link>
+            </div>
+          )}
 
-            <Link to="/register" className="btn btn-primary btn-sm">
-              Sign Up
-            </Link>
-          </>
-        )}
+          {/* Mobile Toggle Button */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="menu-btn">
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {menuOpen && (
+        <div
+          className="mobile-nav"
+          style={{
+            padding: "14px 16px",
+            borderTop: "1px solid var(--border)",
+            background: "var(--bg)",
+          }}
+        >
+          <NavLinks user={user} isAdmin={isAdmin} mobile />
+        </div>
+      )}
+
+      {/* Responsive Styles */}
+      <style>{`
+        .menu-btn {
+          display: none;
+          background: transparent;
+          border: none;
+          font-size: 26px;
+          cursor: pointer;
+          color: var(--text);
+          padding: 4px;
+        }
+
+        .auth-buttons{
+          display:flex;
+          align-items:center;
+          gap:10px;
+        }
+
+        @media (max-width: 768px) {
+
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+}
+
+        @media (min-width: 769px) {
+
+          .mobile-nav {
+            display: none;
+          }
+
+        }
+      `}</style>
     </nav>
   );
 };

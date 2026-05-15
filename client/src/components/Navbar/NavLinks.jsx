@@ -1,25 +1,32 @@
 import { Link, useLocation } from "react-router-dom";
 
-const NavLinks = ({ user, isAdmin }) => {
+const NavLinks = ({ user, isAdmin, mobile = false }) => {
   const location = useLocation();
 
   const linkStyle = (path) => ({
-    padding: "6px 12px",
+    padding: mobile ? "12px 14px" : "10px 14px",
     borderRadius: "var(--radius)",
     fontSize: 14,
+    fontWeight: location.pathname === path ? 500 : 400,
+    textDecoration: "none",
     color: location.pathname === path ? "var(--primary)" : "var(--text-muted)",
     background:
       location.pathname === path ? "var(--primary-light)" : "transparent",
-    transition: "all 0.15s",
+    transition: "all 0.2s ease",
+    width: mobile ? "100%" : "auto",
+    textAlign: "left",
+    boxSizing: "border-box",
   });
 
   return (
     <div
       style={{
         display: "flex",
-        alignItems: "center",
-        gap: 4,
-        flex: 1,
+        flexDirection: mobile ? "column" : "row",
+        alignItems: mobile ? "flex-start" : "center",
+        justifyContent: "flex-start",
+        gap: mobile ? 4 : 8,
+        width: "100%",
       }}
     >
       <Link to="/" style={linkStyle("/")}>
@@ -48,7 +55,7 @@ const NavLinks = ({ user, isAdmin }) => {
           style={{
             ...linkStyle("/admin"),
             color: "var(--warning)",
-            fontWeight: 500,
+            fontWeight: 600,
           }}
         >
           Admin
