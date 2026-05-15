@@ -84,7 +84,19 @@ const SearchBar = ({ filters, setFilters, handleSearch }) => {
         <option value="rating">Top rated</option>
       </select>
 
-      <button type="reset" className="btn btn-primary btn-sm">
+      <button
+        type="button"
+        className="btn btn-primary btn-sm"
+        onClick={() =>
+          setFilters({
+            search: "",
+            subject: "",
+            semester: "",
+            fileType: "",
+            sort: "newest",
+          })
+        }
+      >
         Reset
       </button>
     </form>

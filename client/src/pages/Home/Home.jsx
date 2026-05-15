@@ -99,6 +99,10 @@ export default function Home() {
     loadMaterials(1);
   }, [loadMaterials]);
 
+  useEffect(() => {
+    loadMaterials();
+  }, [filters]);
+
   const handleSearch = (e) => {
     e.preventDefault();
 
