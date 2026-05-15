@@ -184,20 +184,9 @@ export default function MaterialDetail() {
 
   return (
     <div className="page">
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 300px",
-          gap: 24,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
+      <div className="material-layout">
+        {/* LEFT CONTENT */}
+        <div className="material-main">
           <MaterialHeader
             material={material}
             isOwner={isOwner}
@@ -230,18 +219,75 @@ export default function MaterialDetail() {
           />
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-          }}
-        >
+        {/* RIGHT SIDEBAR */}
+        <div className="material-sidebar">
           <FileInfoCard material={material} />
 
           <ReviewsCard ratings={ratings} />
         </div>
       </div>
+
+      {/* RESPONSIVE CSS */}
+      <style>{`
+      
+      .material-layout {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .material-main {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-width: 0;
+      }
+
+      .material-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: sticky;
+        top: 90px;
+      }
+
+      /* TABLET */
+      @media (max-width: 1024px) {
+
+        .material-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .material-sidebar {
+          position: static;
+        }
+
+      }
+
+      /* MOBILE */
+      @media (max-width: 768px) {
+
+        .material-layout {
+          gap: 18px;
+        }
+
+        .material-main {
+          gap: 14px;
+        }
+
+      }
+
+      /* SMALL MOBILE */
+      @media (max-width: 480px) {
+
+        .material-layout {
+          gap: 14px;
+        }
+
+      }
+
+    `}</style>
     </div>
   );
 }
